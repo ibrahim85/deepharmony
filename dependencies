@@ -1,0 +1,5 @@
+musescore 2+
+python-3
+	keras
+	theano
+	music21
