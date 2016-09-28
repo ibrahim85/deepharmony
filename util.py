@@ -117,3 +117,22 @@ def pitchToStream(pitch_array):
         elif pitch != SILENCE:
             stream.append(m21.note.Note(pitch))
     return stream
+
+import glob
+from tqdm import tqdm
+def loadUnprocessedSongs(num_files=None):
+    print('Listing files')
+    files = glob.glob('data/bach-chorales/*.mid')
+    print('Loading files')
+    num_files = num_files if num_files else len(files)+1 
+    songs = [m21.converter.parse(file) for file in tqdm(files[:num_files])]
+    print('Calculating minimum song length')
+    min_length = int(min([song.duration.quarterLength for song in tqdm(songs)]))
+    print('Separating voices')
+    voices_by_song = [separateVoices(song) for song in tqdm(songs)]
+    print('Getting soprano part (input data)')
+    soprano_pitches = [makePitchArray(voices[0])[:min_length] for voices in voices_by_song]
+    print('Getting bass part (output labels)')
+    bass_tuples = [ list(map(pitchToTuple, makePitchArray(voices[3])))[:min_length] for voices in voices_by_song]
+    
+    return (soprano_pitches, bass_tuples, min_length)
