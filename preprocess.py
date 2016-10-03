@@ -16,7 +16,6 @@ bass_data = loadData('Bass')
 min_song_length = findMinLength(soprano_data)
 
 '''
-
 # Loads the pickle file of the voice_string (e.g. Alto)
 def loadData(voice_string):
     filename = 'data/preprocessed/{:}-voices.p'.format(voice_string)
@@ -30,10 +29,7 @@ def loadData(voice_string):
 
 # Finds the shortest song, given voice data (e.g. output from loadData)
 def findMinLength(voice_data):
-    min_length = 1000000
-    for voice in voice_data:
-        min_length = min(len(voice), min_length)
-    return min_length
+    return min(len(song) for song in voice_data)
 
 # Can safely be called when we've got pregenerated data.
 def preprocessAllData(batch_size = 10, total_songs = 5000):
@@ -74,7 +70,5 @@ def preprocessAllData(batch_size = 10, total_songs = 5000):
             bass_data[:start_number])
     
     while start_number <= total_songs:
-        min(batch_size, total_songs-start_number)
-        data = preprocessData(start_number, min(batch_size, total_songs-start_number), initial_data=data)
+        data = preprocessData(start_number, min(batch_size, total_songs-start_number+1), initial_data=data)
         start_number = 1+len(data[0])
-

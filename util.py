@@ -115,7 +115,9 @@ def pitchToStream(pitch_array):
         if pitch == HOLD_NOTE:
             stream[-1].quarterLength += 1
         elif pitch != SILENCE:
-            stream.append(m21.note.Note(pitch))
+            stream.append(m21.note.Note(pitch, quarterLength=1))
+        else:
+            stream.append(m21.note.Rest(quarterLength=1))
     return stream
 
 import glob
