@@ -100,14 +100,30 @@ def makePitchArray(voice):
 # Converts pitch number to a tuple with "one hot encoding"
 LOWEST_PITCH=SILENCE
 HIGHEST_PITCH=108 # C8
-def pitchToTuple(pitch):
-    list = [0] * (HIGHEST_PITCH-LOWEST_PITCH)
-    list[pitch-LOWEST_PITCH] = 1
+def pitchToTuple(pitch, lowest_pitch=SILENCE, ambitus=HIGHEST_PITCH-LOWEST_PITCH):
+    list = [0] * ambitus
+    list[pitch-lowest_pitch] = 1
     return tuple(list)
 
 def tupleToPitch(tuple):
     index = max(enumerate(tuple), key=lambda x: x[1])[0]
     return LOWEST_PITCH + index
+
+
+
+
+def useNumberHolds(songs):
+    NUM_PITCHES=HIGHEST_PITCH-LOWEST_PITCH
+    def convertHoldsToNumberHolds(pitches):
+        converted = []
+        for i in range(len(pitches)):
+            if pitches[i] == HOLD_NOTE:
+                converted.append(NUM_PITCHES + pitches[i-1])
+            else:
+                converted.append(pitches[i])
+        return converted
+    
+    return [convertHoldsToNumberHolds(song) for song in songs]
 
 def pitchToStream(pitch_array):
     stream = m21.stream.Stream()
