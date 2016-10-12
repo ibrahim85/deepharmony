@@ -7,7 +7,7 @@ Using LSTM neural networks to produce accompaniments for melodies. Developed for
 
 Currently, Deep Harmony is learning to mimic the behavior of Bach Chorales created by [David Cope](http://artsites.ucsc.edu/faculty/cope/).
 
-Deep Harmony is written in [Python 3.5](https://www.python.org) and uses the [Keras](https://keras.io Keras) machine learning library.
+Deep Harmony is written in [Python 3.5](https://www.python.org) and uses the [Keras](https://keras.io) machine learning library.
 
 ## Dependencies:
 * [Jupyter Notebook](http://jupyter.org), an interactive programming environment and editor (necessary for using the .ipynb files)
