@@ -128,7 +128,7 @@ def useNumberHolds(songs):
 def pitchToStream(pitch_array):
     stream = m21.stream.Stream()
     for pitch in pitch_array:
-        if pitch == HOLD_NOTE:
+        if pitch == HOLD_NOTE or pitch > HIGHEST_PITCH:
             stream[-1].quarterLength += 1
         elif pitch != SILENCE:
             stream.append(m21.note.Note(pitch, quarterLength=1))
