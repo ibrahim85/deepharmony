@@ -1,6 +1,6 @@
 # deepharmony
 
-** Moved to git@solar-10.wpi.edu:ModalObjectLibrary/deepharmony.git **
+**Moved to http://solar-10.wpi.edu/ModalObjectLibrary/deepharmony**
 
 Deep Harmony is a machine learning project for creating harmonies based on a given melody.
 
